@@ -4,7 +4,7 @@ protocol HttpConnectionProtocol {
     func get(_ urlString: String, token: String?, completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask?
     func post(_ urlString: String, token: String?, body: [String: Any], completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask?
 }
-class HttpConnection: HttpConnectionProtocol {
+public class HttpConnection: HttpConnectionProtocol {
     private let session: HttpSessionProtocol
     private let parser: ResponseParser
 
@@ -22,7 +22,7 @@ class HttpConnection: HttpConnectionProtocol {
         }
         return request
     }
-    func get(_ urlString: String, token: String? = nil, completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask? {
+    public func get(_ urlString: String, token: String? = nil, completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask? {
         guard let url = URL(string: urlString) else {
             completion(.failure(.debug("Invalid url: \(urlString)")))
             return nil
@@ -32,7 +32,7 @@ class HttpConnection: HttpConnectionProtocol {
         return executeTask(request, completion: completion)
     }
 
-    func post(_ urlString: String, token: String? = nil, body: [String: Any], completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask? {
+    public func post(_ urlString: String, token: String? = nil, body: [String: Any], completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask? {
         guard let url = URL(string: urlString) else {
             completion(.failure(.debug("Invalid url: \(urlString)")))
             return nil

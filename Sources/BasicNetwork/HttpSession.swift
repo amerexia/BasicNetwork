@@ -24,7 +24,7 @@ class HttpSession: HttpSessionProtocol {
 
 typealias HttpSessionTaskCallback = (Data?, URLResponse?, Error?) -> Void
 
-protocol HttpSessionTask {
+public protocol HttpSessionTask {
     func cancel()
     func suspend()
     func resume()

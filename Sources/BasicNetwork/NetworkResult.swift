@@ -1,10 +1,10 @@
 import Foundation
-enum NetworkResult<T> {
+public enum NetworkResult<T> {
     case success(T)
     case failure(NetworkError)
 }
 
-enum NetworkError: CustomNSError {
+public enum NetworkError: CustomNSError {
     case debug(String)
     case system(Error)
 }
