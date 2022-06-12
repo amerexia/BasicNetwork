@@ -1,9 +1,9 @@
 import Foundation
 
-protocol HttpSessionProtocol {
+public protocol HttpSessionProtocol {
     func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask
 }
-class HttpSession: HttpSessionProtocol {
+public class HttpSession: HttpSessionProtocol {
 
     private let urlSession: URLSession
     public init(configuration: URLSessionConfiguration) {
@@ -17,12 +17,12 @@ class HttpSession: HttpSessionProtocol {
         self.urlSession.invalidateAndCancel()
     }
 
-    func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask {
+    public func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask {
         return self.urlSession.dataTask(with: request, completionHandler: completion ?? { _, _, _ in })
     }
 }
 
-typealias HttpSessionTaskCallback = (Data?, URLResponse?, Error?) -> Void
+public typealias HttpSessionTaskCallback = (Data?, URLResponse?, Error?) -> Void
 
 public protocol HttpSessionTask {
     func cancel()

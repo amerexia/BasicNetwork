@@ -7,8 +7,8 @@ protocol HttpConnectionProtocol {
 public class HttpConnection: HttpConnectionProtocol {
     private let session: HttpSessionProtocol
     private let parser: ResponseParser
-
-    init(session: HttpSessionProtocol = HttpSession(configuration: URLSessionConfiguration.ephemeral)) {
+    
+    public init(session: HttpSessionProtocol = HttpSession(configuration: URLSessionConfiguration.ephemeral)) {
         self.session = session
         self.parser = ResponseParser()
     }
@@ -27,17 +27,17 @@ public class HttpConnection: HttpConnectionProtocol {
             completion(.failure(.debug("Invalid url: \(urlString)")))
             return nil
         }
-
+        
         let request = self.request(url: url, httpMethod: .GET, token: token)
         return executeTask(request, completion: completion)
     }
-
+    
     public func post(_ urlString: String, token: String? = nil, body: [String: Any], completion: @escaping (NetworkResult<Data>) -> Void) -> HttpSessionTask? {
         guard let url = URL(string: urlString) else {
             completion(.failure(.debug("Invalid url: \(urlString)")))
             return nil
         }
-
+        
         var request = self.request(url: url, httpMethod: .POST, token: token)
         let stringBody = self.body(body)
         request.httpBody = stringBody?.data(using: String.Encoding.utf8)
