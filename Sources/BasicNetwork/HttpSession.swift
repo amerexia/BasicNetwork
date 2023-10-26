@@ -3,22 +3,23 @@ import Foundation
 public protocol HttpSessionProtocol {
     func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask
 }
-public class HttpSession: HttpSessionProtocol {
 
+public class HttpSession: HttpSessionProtocol {
     private let urlSession: URLSession
     public init(configuration: URLSessionConfiguration) {
-        self.urlSession = URLSession(configuration: configuration)
+        urlSession = URLSession(configuration: configuration)
     }
 
     init(configuration: URLSessionConfiguration, delegate: URLSessionTaskDelegate?) {
-        self.urlSession = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
+        urlSession = URLSession(configuration: configuration, delegate: delegate, delegateQueue: nil)
     }
+
     deinit {
         self.urlSession.invalidateAndCancel()
     }
 
     public func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask {
-        return self.urlSession.dataTask(with: request, completionHandler: completion ?? { _, _, _ in })
+        return urlSession.dataTask(with: request, completionHandler: completion ?? { _, _, _ in })
     }
 }
 
@@ -34,5 +35,5 @@ public protocol HttpSessionTask {
 extension URLSessionDataTask: HttpSessionTask { }
 
 enum HttpMethod: String {
-    case GET, POST
+    case GET, POST, PUT, DELETE
 }
