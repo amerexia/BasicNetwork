@@ -13,6 +13,7 @@ Add https://github.com/amerexia/BasicNetwork
 ## Making Requests
 ```swift
 let httpConnection = HttpConnection()
+let url = "https://httpbin.org/"
 
 // Define custom headers
 let customHeaders = [
@@ -22,8 +23,6 @@ let customHeaders = [
 
 // Set the custom headers
 httpConnection.setCustomHeaders(customHeaders)
-
-let url = "https://httpbin.org/"
 
 /// GET Method
 httpConnection.get(url, token: "yourToken") { (response) in
@@ -45,6 +44,7 @@ case let .failure(error):
 }
 })
 
+/// PUT Method
 httpConnection.put(url, token: "yourToken", body: body) { result in
     switch result {
     case .success(let data):
@@ -54,6 +54,7 @@ httpConnection.put(url, token: "yourToken", body: body) { result in
     }
 }
 
+/// DELETE Method
 httpConnection.delete(url, token: "yourToken") { result in
     switch result {
     case .success(let data):
