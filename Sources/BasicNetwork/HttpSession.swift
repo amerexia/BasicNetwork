@@ -1,9 +1,5 @@
 import Foundation
 
-public protocol HttpSessionProtocol {
-    func dataTask(with request: URLRequest, completion: HttpSessionTaskCallback?) -> HttpSessionTask
-}
-
 public class HttpSession: HttpSessionProtocol {
     private let urlSession: URLSession
     public init(configuration: URLSessionConfiguration) {
@@ -23,17 +19,3 @@ public class HttpSession: HttpSessionProtocol {
     }
 }
 
-public typealias HttpSessionTaskCallback = (Data?, URLResponse?, Error?) -> Void
-
-public protocol HttpSessionTask {
-    func cancel()
-    func suspend()
-    func resume()
-    var state: URLSessionTask.State { get }
-}
-
-extension URLSessionDataTask: HttpSessionTask { }
-
-enum HttpMethod: String {
-    case GET, POST, PUT, DELETE
-}
